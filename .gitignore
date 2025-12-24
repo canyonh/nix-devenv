@@ -1,0 +1,21 @@
+# Nix build artifacts
+result
+result-*
+
+# Nix flake outputs
+.direnv/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.backup
+*.bak
