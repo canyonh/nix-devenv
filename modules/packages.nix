@@ -15,6 +15,7 @@
       python-lsp-ruff   # Fast linting/formatting
       pynvim            # Neovim Python support
     ]))
+    pyright           # Alternative Python LSP (Microsoft's implementation)
 
     # Nix (for editing your flakes and nix files)
     nil               # Nix LSP
