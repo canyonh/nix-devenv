@@ -5,36 +5,40 @@
   programs.git = {
     enable = true;
 
-    userName = "Kun-Yao Huang";
-    userEmail = "khuang@anduril.com";
+    # New unified settings structure (home-manager 24.05+)
+    settings = {
+      user = {
+        name = "Kun-Yao Huang";
+        email = "canyonh@gmail.com";
+      };
 
-    extraConfig = {
       init.defaultBranch = "main";
       pull.rebase = false;
 
       # Use neovim as diff/merge tool (from your existing setup)
-      diff.tool = "nvimdiff";
+      diff = {
+        tool = "nvimdiff";
+        algorithm = "histogram";
+      };
+
       merge.tool = "nvimdiff";
 
       # Credential helper
       credential.helper = "store";
 
-      # Better diffs
-      diff.algorithm = "histogram";
-
       # Reuse recorded resolution
       rerere.enabled = true;
-    };
 
-    # Git aliases
-    aliases = {
-      st = "status";
-      co = "checkout";
-      br = "branch";
-      ci = "commit";
-      unstage = "reset HEAD --";
-      last = "log -1 HEAD";
-      visual = "log --graph --oneline --all";
+      # Git aliases
+      alias = {
+        st = "status";
+        co = "checkout";
+        br = "branch";
+        ci = "commit";
+        unstage = "reset HEAD --";
+        last = "log -1 HEAD";
+        visual = "log --graph --oneline --all";
+      };
     };
   };
 

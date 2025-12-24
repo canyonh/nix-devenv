@@ -6,7 +6,7 @@
   home.packages = with pkgs; [
     # === LSP Servers (Language Server Protocol) ===
     # C/C++ (for dive-xl-payloads, maritime-pandion, etc.)
-    clangd_17
+    clang-tools  # Includes clangd, clang-format, clang-tidy
 
     # Python (for pybt, autonomy-divexl, test scripts)
     (python3.withPackages (ps: with ps; [
@@ -24,7 +24,6 @@
     lua-language-server
 
     # Bash/Shell scripting
-    bash-language-server
     nodePackages.bash-language-server
 
     # CMake (for CMakeLists.txt files)
@@ -34,9 +33,8 @@
     yaml-language-server
 
     # === Code Formatters & Linters ===
-    black           # Python formatter
-    ruff            # Fast Python linter/formatter
-    clang-tools     # clang-format, clang-tidy
+    # Note: black and ruff are available via python-lsp-server above
+    # clang-tools already included above with LSP servers
 
     # === Development Tools ===
     # Search and navigation

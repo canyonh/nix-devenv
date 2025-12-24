@@ -2,9 +2,9 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Basic shell configuration
-  programs.bash.enable = true;
-  programs.zsh.enable = true;
+  # Stage 1: Don't manage shell config files yet
+  # Keep using existing ~/devcfg setup for bash/zsh
+  # We'll migrate in Stage 2
 
   # Essential environment variables
   home.sessionVariables = {

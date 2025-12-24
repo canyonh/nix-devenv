@@ -3,32 +3,29 @@
 { config, pkgs, lib, ... }:
 
 {
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
+  # Stage 1: Install direnv but don't integrate with shell config yet
+  # We'll manually add direnv hook to your existing ~/.zshrc from ~/devcfg
 
-    # nix-direnv provides better caching and performance for nix shells
-    nix-direnv.enable = true;
+  # Just install the direnv package
+  home.packages = with pkgs; [
+    direnv
+    nix-direnv
+  ];
 
-    # Optional: Configuration
-    # config = {
-    #   global = {
-    #     hide_env_diff = true;  # Don't show environment variable changes
-    #   };
-    # };
-  };
+  # Create direnv config directory and settings
+  xdg.configFile."direnv/direnvrc".text = ''
+    # Load nix-direnv for better caching
+    source ${pkgs.nix-direnv}/share/nix-direnv/direnvrc
+  '';
 
-  # Direnv will automatically detect:
-  # - .envrc files (like in autonomy-divexl)
-  # - shell.nix files
-  # - flake.nix files (with "use flake")
+  # Note: You'll need to manually add this to your ~/.zshrc or ~/devcfg/.config/zsh/.zshrc:
+  #   eval "$(direnv hook zsh)"
   #
-  # For projects WITHOUT .envrc, you can manually run:
-  #   cd ~/source/dive-xl-payloads
-  #   echo "use flake" > .envrc
-  #   direnv allow
-  #
-  # But since .envrc is tracked in git, we'll handle those manually
-  # This setup enables the infrastructure for when .envrc exists
+  # Or in Stage 2, we'll enable full integration:
+  #   programs.direnv = {
+  #     enable = true;
+  #     enableBashIntegration = true;
+  #     enableZshIntegration = true;
+  #     nix-direnv.enable = true;
+  #   };
 }
