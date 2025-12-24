@@ -221,6 +221,100 @@ This means:
 - Outside project shell → uses home-manager's clangd for general C++ editing
 - LSP always available!
 
+## Quick Reference
+
+### Daily Commands
+
+```bash
+# Apply configuration changes
+cd ~/nix-devenv
+home-manager switch --flake .#khuang@ubuntu-laptop
+
+# Update all packages to latest versions
+nix flake update
+home-manager switch --flake .#khuang@ubuntu-laptop
+
+# List all installed packages
+home-manager packages
+
+# Search for a package
+nix search nixpkgs <package-name>
+
+# View generation history
+home-manager generations
+
+# Rollback to previous generation
+home-manager switch --rollback
+
+# See what changed between generations
+nix profile diff-closures
+```
+
+### Adding/Removing Packages
+
+```bash
+# 1. Edit the package list
+cd ~/nix-devenv
+nvim modules/packages.nix
+
+# 2. Apply changes
+home-manager switch --flake .#khuang@ubuntu-laptop
+```
+
+### Checking Package Versions
+
+```bash
+# Check what version is available
+nix eval nixpkgs#clang-tools.version
+
+# Check installed version
+clangd --version
+pyright --version
+```
+
+### Emergency Recovery
+
+```bash
+# If home-manager breaks, rollback immediately
+home-manager switch --rollback
+
+# If that fails, activate previous generation directly
+/nix/var/nix/profiles/per-user/$USER/home-manager-*-link/activate
+
+# Nuclear option: uninstall home-manager
+home-manager uninstall
+# (Your old dotfiles still work!)
+```
+
+### Cleaning Up
+
+```bash
+# Remove old generations (free up space)
+home-manager expire-generations "-30 days"
+
+# Or remove specific generation
+home-manager remove-generations 5
+
+# Clean up Nix store
+nix-collect-garbage -d
+
+# Or keep last 3 generations
+nix-collect-garbage --delete-older-than 3
+```
+
+### Project Shell Integration
+
+```bash
+# For repos with .envrc (autonomy-divexl)
+cd ~/source/autonomy-divexl
+direnv allow  # First time only
+# Shell automatically loads!
+
+# For repos without .envrc (dive-xl-payloads)
+cd ~/source/dive-xl-payloads
+nix develop  # Manual activation
+```
+
 ## Troubleshooting
 
 ### Issue: Package conflicts with nix profile

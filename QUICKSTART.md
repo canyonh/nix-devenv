@@ -2,72 +2,103 @@
 
 Get up and running with home-manager in 5 minutes.
 
-## Step 1: Dry-Run (See What Will Happen)
+## Initial Setup (First Time Only)
+
+### Step 1: Build Configuration
 
 ```bash
 cd ~/nix-devenv
-nix run home-manager/master -- switch --flake .#khuang@ubuntu-laptop --dry-run
+nix build '.#homeConfigurations."khuang@ubuntu-laptop".activationPackage'
 ```
 
-This shows what will be installed without actually doing it.
+This downloads and builds all packages (takes 5-10 minutes first time).
 
-## Step 2: Activate home-manager
-
-If the dry-run looks good:
+### Step 2: Activate home-manager
 
 ```bash
-cd ~/nix-devenv
-nix run home-manager/master -- switch --flake .#khuang@ubuntu-laptop
+./result/activate
 ```
 
-This will take a few minutes on first run as it downloads packages.
+Applies the configuration and installs packages.
 
-## Step 3: Reload Your Shell
+### Step 3: Reload Your Shell
 
 ```bash
 source ~/.zshrc
 # or open a new terminal
 ```
 
-## Step 4: Verify Everything Works
+### Step 4: Verify Everything Works
 
 ```bash
 # Check LSP servers
-which clangd
-which pyright
-which nil
+which clangd pyright nil lua-language-server
+
+# Check versions
+clangd --version
+pyright --version
 
 # Check dev tools
-which rg
-which fd
-which fzf
+which fd fzf jq bat
 
 # Check old packages still work
-which latticectl
-which yubikey-cli
+which latticectl yubikey cachix
 
-# Check direnv
-direnv --version
+# Check git config
+git config --get user.name
 ```
+
+### Step 5 (Optional): Enable direnv Auto-Loading
+
+Add to `~/devcfg/.config/zsh/.zshrc`:
+
+```bash
+# Add at the end of file
+eval "$(direnv hook zsh)"
+```
+
+Then reload: `source ~/.zshrc`
 
 ## Daily Usage
 
-### Update packages to latest:
+### Apply Changes After Editing Config
+
+```bash
+cd ~/nix-devenv
+home-manager switch --flake .#khuang@ubuntu-laptop
+```
+
+### Update All Packages to Latest Versions
+
 ```bash
 cd ~/nix-devenv
 nix flake update
 home-manager switch --flake .#khuang@ubuntu-laptop
 ```
 
-### Add new package:
-1. Edit `modules/packages.nix`
-2. Add package to `home.packages` list
-3. Run: `home-manager switch --flake .#khuang@ubuntu-laptop`
+### Add a New Package
 
-### Rollback if something breaks:
+1. Search for package: `nix search nixpkgs <name>`
+2. Edit `modules/packages.nix`
+3. Add to `home.packages` list
+4. Apply: `home-manager switch --flake .#khuang@ubuntu-laptop`
+
+### List Installed Packages
+
 ```bash
-home-manager generations  # See history
-home-manager switch --rollback  # Go back one step
+home-manager packages
+```
+
+### View History
+
+```bash
+home-manager generations
+```
+
+### Rollback
+
+```bash
+home-manager switch --rollback  # Go back one generation
 ```
 
 ## Working with Project Shells
@@ -100,6 +131,61 @@ nix develop  # Manual activation
 ```bash
 home-manager uninstall
 ```
+
+## Command Cheatsheet
+
+```bash
+# Apply config changes
+home-manager switch --flake ~/nix-devenv#khuang@ubuntu-laptop
+
+# Update everything
+nix flake update && home-manager switch --flake ~/nix-devenv#khuang@ubuntu-laptop
+
+# List packages
+home-manager packages
+
+# Search for package
+nix search nixpkgs <package>
+
+# View generations
+home-manager generations
+
+# Rollback
+home-manager switch --rollback
+
+# Clean up old generations
+nix-collect-garbage -d
+
+# Check package version
+nix eval nixpkgs#<package>.version
+
+# Rebuild after editing
+cd ~/nix-devenv && home-manager switch --flake .#khuang@ubuntu-laptop
+```
+
+## What You Have Now
+
+**✅ Installed LSP Servers:**
+- clangd (C/C++)
+- pyright (Python)
+- pylsp (Python alternative)
+- nil (Nix)
+- lua-language-server (Lua)
+- bash-language-server (Shell)
+- cmake-language-server (CMake)
+- yaml-language-server (YAML)
+
+**✅ Development Tools:**
+- fd, fzf, bat, jq, htop, tree
+- git, git-lfs, tig
+- cmake, ninja
+- direnv, nix-direnv
+
+**✅ Coexisting Safely:**
+- Your nvim config unchanged
+- Your tmux config unchanged
+- Your zsh config unchanged
+- Old nix profile packages (latticectl, yubikey, cachix) still work
 
 ## Next Steps
 
