@@ -7,21 +7,14 @@
         viAlias = true;
         vimAlias = true;
 
-        # Provide pre-compiled treesitter grammars for NixOS
-        # This avoids compilation issues with lazy.nvim's nvim-treesitter
-        plugins = with pkgs.vimPlugins; [
-            (nvim-treesitter.withPlugins (p: [
-                p.c
-                p.cpp
-                p.json
-                p.cmake
-                p.bash
-                p.lua
-                p.dockerfile
-                p.vim
-                p.vimdoc
-                p.python
-            ]))
+        # Let lazy.nvim manage all plugins
+        # Just ensure neovim has access to required build tools via environment
+        extraPackages = with pkgs; [
+            gcc
+            gnumake
+            tree-sitter
+            # Add node for some plugins that need it
+            nodejs
         ];
     };
 

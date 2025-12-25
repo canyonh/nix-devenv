@@ -10,22 +10,32 @@ return {
     local treesitter = require("nvim-treesitter.configs")
 
     -- configure treesitter
-    treesitter.setup({ -- enable syntax highlighting
+    treesitter.setup({
+      -- enable syntax highlighting
       highlight = {
         enable = true,
       },
 
-      -- enable identation
+      -- enable indentation
       indent = { enable = true },
 
-      -- enable autotagging (w/ nvim-ts-auditag plugin)
+      -- enable autotagging (w/ nvim-ts-autotag plugin)
       autotag = {
         enable = true,
       },
 
-      -- On NixOS, parsers are provided by home-manager, not auto-installed
-      -- Disable auto-install to avoid compilation issues
-      auto_install = false,
+      -- ensure these language parsers are installed
+      ensure_installed = {
+        "c",
+        "cpp",
+        "json",
+        "cmake",
+        "bash",
+        "lua",
+        "dockerfile",
+        "vimdoc",
+        "python",
+      },
 
       incremental_selection = {
         enable = true,
