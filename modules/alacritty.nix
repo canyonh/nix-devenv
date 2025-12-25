@@ -1,8 +1,13 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, isLinux ? false, isDarwin ? false, ... }:
 
 {
-  programs.alacritty = {
-    enable = true;
+  # Only enable Alacritty on Linux (use iTerm2 on macOS)
+  config = lib.mkIf isLinux {
+    # Set alacritty as default terminal on Linux
+    home.sessionVariables.TERMINAL = "alacritty";
+
+    programs.alacritty = {
+      enable = true;
 
     settings = {
       # Font configuration with Nerd Font
@@ -98,6 +103,7 @@
         { key = "Minus"; mods = "Control"; action = "DecreaseFontSize"; }
         { key = "Key0"; mods = "Control"; action = "ResetFontSize"; }
       ];
+    };
     };
   };
 }

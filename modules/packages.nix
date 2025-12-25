@@ -1,6 +1,6 @@
 # Package management
 # LSP servers, development tools, and utilities
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, isLinux ? false, isDarwin ? false, ... }:
 
 {
   home.packages = with pkgs; [
@@ -70,7 +70,6 @@
     # Other utilities
     htop            # Better top
     tmux            # Terminal multiplexer (if not using existing config)
-    dconf           # Configuration system (needed for desktop settings)
     # Note: alacritty is configured in modules/alacritty.nix
 
     # Fonts (Nerd Fonts for terminal icons)
@@ -83,6 +82,10 @@
     # - yubikey-cli (from Anduril)
     # - cachix (from your nix profile)
     # These remain in your existing nix profile for now
+  ]
+  # Linux-specific packages
+  ++ lib.optionals isLinux [
+    dconf           # Configuration system (needed for desktop settings on Linux)
   ];
 
   # Note: We're intentionally NOT managing neovim here yet

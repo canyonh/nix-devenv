@@ -1,5 +1,5 @@
 # Common configuration shared across all platforms
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, isLinux ? false, isDarwin ? false, ... }:
 
 {
   # Stage 1: Don't manage shell config files yet
@@ -10,7 +10,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
-    TERMINAL = "alacritty";
+    # TERMINAL set in platform-specific modules (alacritty on Linux, iTerm2 on macOS)
 
     # Ensure nix profile packages stay in PATH
     # This is important to keep latticectl, yubikey-cli, cachix accessible
@@ -19,29 +19,13 @@
   # XDG Base Directory specification
   xdg.enable = true;
 
-  # Set default applications
-  xdg.mimeApps = {
+  # Set default applications (Linux only - macOS uses different app system)
+  xdg.mimeApps = lib.mkIf isLinux {
     enable = true;
     defaultApplications = {
       "x-scheme-handler/terminal" = "Alacritty.desktop";
     };
   };
-
-  # Desktop environment settings (via dconf/gsettings)
-  dconf.settings = {
-    # Cinnamon default terminal
-    "org/cinnamon/desktop/default-applications/terminal" = {
-      exec = "alacritty";
-      exec-arg = "";
-    };
-  };
-
-  # Ensure Cinnamon picks up the terminal setting on login
-  # (dconf.settings alone doesn't always trigger Cinnamon to reload)
-  home.activation.setCinnamonTerminal = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    $DRY_RUN_CMD ${pkgs.glib}/bin/gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
-    $DRY_RUN_CMD ${pkgs.glib}/bin/gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg ''
-  '';
 
   # Allow unfree packages (needed for some Anduril tools)
   nixpkgs.config.allowUnfree = true;

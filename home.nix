@@ -14,6 +14,7 @@
     ./modules/neovim.nix
     ./modules/clangd.nix
     ./modules/alacritty.nix
+    ./modules/iterm2.nix
   ];
 
   # Let home-manager install and manage itself
