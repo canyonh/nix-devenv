@@ -23,18 +23,10 @@ return {
         enable = true,
       },
 
-      -- ensure these language parsers are installed
-      ensure_installed = {
-        "c",
-        "cpp",
-        "json",
-        "cmake",
-        "bash",
-        "lua",
-        "dockerfile",
-        "vimdoc",
-        "python",
-      },
+      -- On NixOS, parsers are provided by home-manager, not auto-installed
+      -- Disable auto-install to avoid compilation issues
+      auto_install = false,
+
       incremental_selection = {
         enable = true,
         keymaps = {
