@@ -11,6 +11,7 @@
     ./modules/direnv.nix
     ./modules/tmux.nix
     ./modules/zsh.nix
+    ./modules/neovim.nix
   ];
 
   # Let home-manager install and manage itself
