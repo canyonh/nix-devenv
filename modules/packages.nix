@@ -58,6 +58,8 @@
     # Build tools
     cmake
     ninja
+    gcc          # C/C++ compiler (needed for telescope-fzf-native and other native plugins)
+    gnumake      # GNU Make (needed for building native plugins)
 
     # Git tools
     git
