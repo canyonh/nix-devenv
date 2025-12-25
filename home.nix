@@ -1,6 +1,6 @@
 # Main home-manager configuration
 # This file imports all the modules and sets up the base configuration
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, isLinux ? false, ... }:
 
 {
   # Import all modules
@@ -18,6 +18,6 @@
   # Let home-manager install and manage itself
   programs.home-manager.enable = true;
 
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  # Nicely reload system units when changing configs (Linux only)
+  systemd.user.startServices = lib.mkIf isLinux "sd-switch";
 }

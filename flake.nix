@@ -66,16 +66,15 @@
           ];
         };
 
-        # macOS machine (Stage 3 - future)
-        # Uncomment when ready to test on macOS
-        # "khuang@macbook" = mkHome {
-        #   system = "aarch64-darwin";  # or x86_64-darwin for Intel Mac
-        #   username = "khuang";
-        #   hostname = "macbook";
-        #   extraModules = [
-        #     ./home/darwin.nix
-        #   ];
-        # };
+        # macOS machine (Stage 3)
+        "khuang@macbook" = mkHome {
+          system = "aarch64-darwin";  # Apple Silicon
+          username = "khuang";
+          hostname = "KHUANG-MACBOOK16";
+          extraModules = [
+            ./home/darwin.nix
+          ];
+        };
 
         # NixOS desktop (Stage 5 - future)
         # "khuang@nixos-desktop" = mkHome {
