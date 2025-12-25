@@ -10,6 +10,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    TERMINAL = "alacritty";
 
     # Ensure nix profile packages stay in PATH
     # This is important to keep latticectl, yubikey-cli, cachix accessible
@@ -17,6 +18,14 @@
 
   # XDG Base Directory specification
   xdg.enable = true;
+
+  # Set default applications
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "x-scheme-handler/terminal" = "Alacritty.desktop";
+    };
+  };
 
   # Allow unfree packages (needed for some Anduril tools)
   nixpkgs.config.allowUnfree = true;
