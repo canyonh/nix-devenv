@@ -60,6 +60,7 @@
     ninja
     gcc          # C/C++ compiler (needed for telescope-fzf-native and other native plugins)
     gnumake      # GNU Make (needed for building native plugins)
+    tree-sitter  # Tree-sitter CLI (needed for nvim-treesitter)
 
     # Git tools
     git
