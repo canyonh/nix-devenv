@@ -9,6 +9,7 @@
     ./modules/git.nix
     ./modules/packages.nix
     ./modules/direnv.nix
+    ./modules/tmux.nix
   ];
 
   # Let home-manager install and manage itself
