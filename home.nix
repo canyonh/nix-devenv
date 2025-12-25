@@ -13,6 +13,7 @@
     ./modules/zsh.nix
     ./modules/neovim.nix
     ./modules/clangd.nix
+    ./modules/alacritty.nix
   ];
 
   # Let home-manager install and manage itself

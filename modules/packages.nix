@@ -70,6 +70,12 @@
     # Other utilities
     htop            # Better top
     tmux            # Terminal multiplexer (if not using existing config)
+    # Note: alacritty is configured in modules/alacritty.nix
+
+    # Fonts (Nerd Fonts for terminal icons)
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
+    nerd-fonts.hack
 
     # NOTE: We're NOT including these from nix profile:
     # - latticectl (from anduril-nixpkgs)
