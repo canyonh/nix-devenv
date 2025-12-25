@@ -70,6 +70,7 @@
     # Other utilities
     htop            # Better top
     tmux            # Terminal multiplexer (if not using existing config)
+    dconf           # Configuration system (needed for desktop settings)
     # Note: alacritty is configured in modules/alacritty.nix
 
     # Fonts (Nerd Fonts for terminal icons)
