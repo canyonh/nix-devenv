@@ -77,15 +77,15 @@
         };
 
         # NixOS desktop (Stage 5 - future)
-        # "khuang@nixos-desktop" = mkHome {
-        #   system = "x86_64-linux";
-        #   username = "khuang";
-        #   hostname = "nixos-desktop";
-        #   extraModules = [
-        #     ./home/linux.nix
-        #     ./home/nixos.nix
-        #   ];
-        # };
+        "kxhuan@nixos-desktop" = mkHome {
+          system = "x86_64-linux";
+          username = "kxhuan";
+          hostname = "kxhuan-nixos";
+          extraModules = [
+            ./home/linux.nix
+            #./home/nixos.nix
+          ];
+        };
       };
 
       # Development shell for working on this flake
