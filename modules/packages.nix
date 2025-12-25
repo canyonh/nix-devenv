@@ -58,7 +58,6 @@
     # Build tools
     cmake
     ninja
-    gcc          # C/C++ compiler (needed for telescope-fzf-native and other native plugins)
     gnumake      # GNU Make (needed for building native plugins)
     tree-sitter  # Tree-sitter CLI (needed for nvim-treesitter)
 
@@ -86,6 +85,12 @@
   # Linux-specific packages
   ++ lib.optionals isLinux [
     dconf           # Configuration system (needed for desktop settings on Linux)
+    gcc             # GNU C compiler (standard on Linux)
+  ]
+  # macOS-specific packages
+  ++ lib.optionals isDarwin [
+    # macOS uses Clang by default (from Xcode/CLT), but ensure it's available
+    # nixpkgs stdenv.cc provides the right compiler
   ];
 
   # Note: We're intentionally NOT managing neovim here yet

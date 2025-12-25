@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, isDarwin ? false, ... }:
 
 {
     programs.neovim = {
@@ -28,7 +28,9 @@
 
         # Build tools for other lazy.nvim plugins (telescope-fzf, etc.)
         extraPackages = with pkgs; [
-            gcc
+            # Use platform-appropriate C compiler
+            # macOS: clang (standard), Linux: gcc (standard)
+            (if isDarwin then clang else gcc)
             gnumake
             tree-sitter
             nodejs
