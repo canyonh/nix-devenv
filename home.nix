@@ -12,6 +12,7 @@
     ./modules/tmux.nix
     ./modules/zsh.nix
     ./modules/neovim.nix
+    ./modules/clangd.nix
   ];
 
   # Let home-manager install and manage itself

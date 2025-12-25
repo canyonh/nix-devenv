@@ -9,22 +9,23 @@ This repository provides a declarative, reproducible development environment tha
 - ✅ macOS (future - Stage 3)
 - ✅ NixOS (future - Stage 5)
 
-## Current Status: Stage 1
+## Current Status: Stage 2 Complete ✅
 
 **What's managed by home-manager:**
-- Git configuration
-- LSP servers (clangd, pyright, nil, lua-ls, etc.)
-- Development tools (ripgrep, fd, fzf, etc.)
-- Direnv integration for auto-loading project shells
-
-**What's NOT managed yet (still using ~/devcfg):**
-- Neovim configuration (keeping existing ~/devcfg/.config/nvim)
-- Tmux configuration (keeping existing ~/devcfg/tmux/.tmux.conf)
-- Zsh configuration (keeping existing ~/devcfg/.config/zsh)
+- ✅ Git configuration
+- ✅ LSP servers (clangd, pyright, nil, lua-ls, etc.)
+- ✅ Development tools (ripgrep, fd, fzf, etc.)
+- ✅ Direnv integration for auto-loading project shells
+- ✅ Neovim package and configuration
+- ✅ Tmux configuration
+- ✅ Zsh configuration
+- ✅ Clangd configuration
 
 **Coexists with:**
 - Existing `nix profile` packages (latticectl, yubikey-cli, cachix)
-- Existing dotfile symlinks from ~/devcfg
+
+**Ready for cleanup:**
+- ~/devcfg directory (no longer needed, all configs migrated)
 
 ## Project Structure
 
@@ -38,10 +39,19 @@ nix-devenv/
 │   ├── linux.nix          # Linux-specific configuration
 │   └── darwin.nix         # macOS-specific (future - Stage 3)
 ├── modules/
-│   ├── git.nix           # Git configuration
-│   ├── packages.nix      # LSP servers and dev tools
-│   └── direnv.nix        # Direnv setup
-└── README.md             # This file
+│   ├── git.nix            # Git configuration
+│   ├── packages.nix       # LSP servers and dev tools
+│   ├── direnv.nix         # Direnv setup
+│   ├── tmux.nix           # Tmux configuration
+│   ├── zsh.nix            # Zsh shell configuration
+│   ├── neovim.nix         # Neovim configuration
+│   └── clangd.nix         # Clangd LSP configuration
+├── config/
+│   ├── tmux/              # Tmux config files
+│   ├── zsh/               # Zsh config files
+│   ├── nvim/              # Neovim config files
+│   └── clangd/            # Clangd config files
+└── README.md              # This file
 ```
 
 ## Prerequisites
@@ -384,7 +394,7 @@ home-manager uninstall
 
 ## Migration Roadmap
 
-### Stage 1: Foundation (Current) ✅
+### Stage 1: Foundation ✅
 - ✅ home-manager setup
 - ✅ Git configuration
 - ✅ LSP servers installed
@@ -392,11 +402,12 @@ home-manager uninstall
 - ✅ Direnv integration
 - ✅ Coexists with existing ~/devcfg setup
 
-### Stage 2: Migrate Core Tools (Future)
-- [ ] Migrate tmux config to home-manager
-- [ ] Migrate zsh config to home-manager
-- [ ] Manage neovim package (keep Lua configs)
-- [ ] Remove old install scripts from ~/devcfg
+### Stage 2: Migrate Core Tools ✅
+- ✅ Migrate tmux config to home-manager
+- ✅ Migrate zsh config to home-manager
+- ✅ Migrate neovim package and configuration
+- ✅ Migrate clangd configuration
+- ⏭️ Remove old ~/devcfg directory (ready for cleanup)
 
 ### Stage 3: macOS Support (Future)
 - [ ] Test on macOS machine
