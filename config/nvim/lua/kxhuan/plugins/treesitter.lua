@@ -1,17 +1,15 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = { "BufReadPre", "BufNewFile" },
+  -- Don't lazy load - telescope and other plugins need it immediately
+  lazy = false,
+  priority = 100,  -- Load early
   dependencies = {
     "windwp/nvim-ts-autotag",
   },
   config = function()
-    -- Check if treesitter is available before configuring
-    local status_ok, treesitter = pcall(require, "nvim-treesitter.configs")
-    if not status_ok then
-      vim.notify("nvim-treesitter not loaded yet", vim.log.levels.WARN)
-      return
-    end
+    -- import nvim-treesitter plugin
+    local treesitter = require("nvim-treesitter.configs")
 
     -- configure treesitter
     treesitter.setup({
