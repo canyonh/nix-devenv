@@ -7,15 +7,51 @@
         viAlias = true;
         vimAlias = true;
 
-        # Let lazy.nvim manage all plugins
-        # Just ensure neovim has access to required build tools via environment
+        # Provide problematic plugins via Nix (pre-compiled)
+        # lazy.nvim will manage the rest
+        plugins = with pkgs.vimPlugins; [
+            # Treesitter with pre-compiled parsers (avoids compilation issues)
+            (nvim-treesitter.withPlugins (p: [
+                p.c
+                p.cpp
+                p.json
+                p.cmake
+                p.bash
+                p.lua
+                p.dockerfile
+                p.vim
+                p.vimdoc
+                p.python
+            ]))
+            nvim-ts-autotag  # Treesitter dependency
+        ];
+
+        # Build tools for other lazy.nvim plugins (telescope-fzf, etc.)
         extraPackages = with pkgs; [
             gcc
             gnumake
             tree-sitter
-            # Add node for some plugins that need it
             nodejs
         ];
+
+        # Configure treesitter (since it's not managed by lazy.nvim)
+        extraLuaConfig = ''
+          -- Treesitter configuration (Nix-provided plugin)
+          require('nvim-treesitter.configs').setup({
+            highlight = { enable = true },
+            indent = { enable = true },
+            autotag = { enable = true },
+            incremental_selection = {
+              enable = true,
+              keymaps = {
+                init_selection = "<C-space>",
+                node_incremental = "<C-space>",
+                scope_incremental = false,
+                node_decremental = "<bs>",
+              },
+            },
+          })
+        '';
     };
 
     # Link individual neovim config files/directories
