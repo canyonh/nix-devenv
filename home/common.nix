@@ -36,6 +36,13 @@
     };
   };
 
+  # Ensure Cinnamon picks up the terminal setting on login
+  # (dconf.settings alone doesn't always trigger Cinnamon to reload)
+  home.activation.setCinnamonTerminal = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    $DRY_RUN_CMD ${pkgs.glib}/bin/gsettings set org.cinnamon.desktop.default-applications.terminal exec 'alacritty'
+    $DRY_RUN_CMD ${pkgs.glib}/bin/gsettings set org.cinnamon.desktop.default-applications.terminal exec-arg ''
+  '';
+
   # Allow unfree packages (needed for some Anduril tools)
   nixpkgs.config.allowUnfree = true;
 }
