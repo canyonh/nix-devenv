@@ -19,3 +19,6 @@ Thumbs.db
 # Backup files
 *.backup
 *.bak
+
+# Neovim runtime files (managed by lazy.nvim)
+config/nvim/lazy-lock.json

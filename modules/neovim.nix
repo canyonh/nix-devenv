@@ -8,6 +8,8 @@
         vimAlias = true;
     };
 
-    # Link the neovim configuration from this repository
-    xdg.configFile."nvim".source = ../config/nvim;
+    # Link individual neovim config files/directories
+    # This allows lazy.nvim to create writable files like lazy-lock.json
+    xdg.configFile."nvim/init.lua".source = ../config/nvim/init.lua;
+    xdg.configFile."nvim/lua".source = ../config/nvim/lua;
 }
