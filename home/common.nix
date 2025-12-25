@@ -27,6 +27,15 @@
     };
   };
 
+  # Desktop environment settings (via dconf/gsettings)
+  dconf.settings = {
+    # Cinnamon default terminal
+    "org/cinnamon/desktop/default-applications/terminal" = {
+      exec = "alacritty";
+      exec-arg = "";
+    };
+  };
+
   # Allow unfree packages (needed for some Anduril tools)
   nixpkgs.config.allowUnfree = true;
 }

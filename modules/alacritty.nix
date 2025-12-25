@@ -23,7 +23,7 @@
           family = "JetBrainsMono Nerd Font";
           style = "Bold Italic";
         };
-        size = 12.0;
+        size = 14.0;
       };
 
       # Window settings
@@ -42,8 +42,8 @@
         multiplier = 3;
       };
 
-      # Shell
-      shell = {
+      # Terminal shell
+      terminal.shell = {
         program = "${pkgs.zsh}/bin/zsh";
       };
 
