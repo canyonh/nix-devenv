@@ -33,9 +33,20 @@
     # YAML (for config files)
     yaml-language-server
 
+    # JSON/HTML/CSS/ESLint (extracted from VSCode)
+    nodePackages.vscode-langservers-extracted
+
+    # Dockerfile
+    dockerfile-language-server
+
     # === Code Formatters & Linters ===
     # Note: black and ruff are available via python-lsp-server above
     # clang-tools already included above with LSP servers
+
+    # Formatters (used by conform.nvim)
+    prettierd        # Fast Prettier daemon (JS/TS/JSON/HTML/CSS/MD/YAML)
+    stylua           # Lua formatter
+    shfmt            # Shell script formatter
 
     # === Development Tools ===
     # Search and navigation
