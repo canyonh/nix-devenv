@@ -22,3 +22,11 @@ Thumbs.db
 
 # Neovim runtime files (managed by lazy.nvim)
 config/nvim/lazy-lock.json
+
+# Secret files - never commit
+*.secret
+*.secret.*
+.envrc.local
+secrets/
+*.dhall
+netrc

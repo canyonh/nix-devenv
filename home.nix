@@ -7,6 +7,7 @@
   imports = [
     ./home/common.nix
     ./modules/git.nix
+    ./modules/nix.nix
     ./modules/packages.nix
     ./modules/direnv.nix
     ./modules/tmux.nix
