@@ -14,6 +14,7 @@
       pylsp-mypy        # Type checking integration
       python-lsp-ruff   # Fast linting/formatting
       pynvim            # Neovim Python support
+      debugpy           # Python debugger (DAP)
     ]))
     pyright           # Alternative Python LSP (Microsoft's implementation)
 
