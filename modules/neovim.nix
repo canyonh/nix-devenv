@@ -7,24 +7,10 @@
         viAlias = true;
         vimAlias = true;
 
-        # Provide problematic plugins via Nix (pre-compiled)
-        # lazy.nvim will recognize and configure them (see config/nvim/lua/kxhuan/plugins/)
+        # Plugins managed by Nix (for build-time dependencies or problematic plugins)
+        # Most plugins are managed by lazy.nvim in config/nvim/lua/kxhuan/plugins/
         plugins = with pkgs.vimPlugins; [
-            # Treesitter with pre-compiled parsers (avoids compilation issues)
-            # Configuration is in config/nvim/lua/kxhuan/plugins/treesitter.lua
-            (nvim-treesitter.withPlugins (p: [
-                p.c
-                p.cpp
-                p.json
-                p.cmake
-                p.bash
-                p.lua
-                p.dockerfile
-                p.vim
-                p.vimdoc
-                p.python
-            ]))
-            nvim-ts-autotag  # Treesitter dependency
+            # Currently empty - all plugins managed by lazy.nvim
         ];
 
         # Build tools for other lazy.nvim plugins (telescope-fzf, etc.)
