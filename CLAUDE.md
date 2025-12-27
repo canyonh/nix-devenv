@@ -42,6 +42,66 @@ home-manager switch --rollback
 nix-collect-garbage -d
 ```
 
+## How Configuration Changes Work
+
+### Understanding Nix Store Symlinks
+
+Most configuration files in this repository are managed via **read-only symlinks to the Nix store**:
+
+```bash
+~/.config/nvim/lua -> /nix/store/...-home-manager-files/.../nvim/lua
+~/.config/tmux/tmux.conf -> /nix/store/...-home-manager-files/.../tmux/tmux.conf
+```
+
+**This means:**
+- Editing files in `~/nix-devenv/config/` does NOT immediately affect your running environment
+- Changes only apply after running `home-manager switch`
+- This provides reproducibility and atomic updates
+
+### When You Need `home-manager switch`
+
+**Always required for:**
+- Nix files (`*.nix` files in `modules/`, `home/`, etc.)
+- Configuration files in `config/` directory (nvim, tmux, zsh, etc.)
+- Package list changes (`modules/packages.nix`)
+- Any changes to `flake.nix` or `home.nix`
+
+**NOT required for:**
+- Files managed directly by applications (e.g., `~/.config/nvim/lazy-lock.json`)
+- Temporary files or caches
+
+### Workflow for Config Changes
+
+1. **Edit source files**: `vim ~/nix-devenv/config/nvim/lua/...`
+2. **Apply changes**: `cd ~/nix-devenv && home-manager switch --flake .#khuang@ubuntu-laptop`
+3. **Reload application**: Restart nvim, tmux, or source zsh config
+
+**Example: Changing Neovim DAP Configuration**
+```bash
+# Edit the config
+vim ~/nix-devenv/config/nvim/lua/kxhuan/plugins/dap.lua
+
+# Apply changes (rebuilds symlinks to new nix store path)
+cd ~/nix-devenv
+home-manager switch --flake .#khuang@ubuntu-laptop
+
+# Restart neovim for changes to take effect
+```
+
+### Why This Approach?
+
+**Pros:**
+- **Reproducible**: Your config is versioned with home-manager generations
+- **Atomic**: Changes apply all-at-once, no partial states
+- **Rollback**: Can revert entire config with `home-manager switch --rollback`
+- **Immutable**: Can't accidentally break config from within applications
+
+**Cons:**
+- **Slower iteration**: ~5-10 second rebuild for each change
+- **Less convenient**: Can't quickly test config tweaks
+
+**Alternative**: For faster iteration, see `modules/neovim.nix` comments about using `mkOutOfStoreSymlink` to create direct symlinks to source files (bypassing the nix store).
+
 ## Architecture
 
 ### Flake Structure

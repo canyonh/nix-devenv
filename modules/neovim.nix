@@ -26,6 +26,17 @@
 
     # Link individual neovim config files/directories
     # This allows lazy.nvim to create writable files like lazy-lock.json
+    #
+    # IMPORTANT: These create read-only symlinks via the nix store, which means:
+    # - Changes to config/nvim/ require `home-manager switch` to take effect
+    # - Provides reproducibility and atomic updates
+    # - Config is tied to home-manager generations (can rollback)
+    #
+    # For faster iteration (changes apply immediately after nvim restart):
+    # Replace with mkOutOfStoreSymlink to symlink directly to source files:
+    #   xdg.configFile."nvim/init.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-devenv/config/nvim/init.lua";
+    #   xdg.configFile."nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-devenv/config/nvim/lua";
+    # Trade-off: Loses reproducibility guarantees and generation rollback for nvim config.
     xdg.configFile."nvim/init.lua".source = ../config/nvim/init.lua;
     xdg.configFile."nvim/lua".source = ../config/nvim/lua;
 }
