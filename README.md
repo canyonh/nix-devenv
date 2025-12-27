@@ -70,7 +70,7 @@ See what would change without actually applying:
 cd ~/nix-devenv
 
 # Dry-run shows what will happen
-nix run home-manager/master -- switch --flake .#khuang@ubuntu-laptop --dry-run
+nix run home-manager/master -- switch --flake .#khuang@ubuntu --dry-run
 ```
 
 Review the output to see:
@@ -86,7 +86,7 @@ If the dry-run looks good, activate home-manager:
 cd ~/nix-devenv
 
 # Activate home-manager
-nix run home-manager/master -- switch --flake .#khuang@ubuntu-laptop
+nix run home-manager/master -- switch --flake .#khuang@ubuntu
 ```
 
 **What happens:**
@@ -160,7 +160,7 @@ Then apply changes:
 
 ```bash
 cd ~/nix-devenv
-home-manager switch --flake .#khuang@ubuntu-laptop
+home-manager switch --flake .#khuang@ubuntu
 ```
 
 ### Updating Packages
@@ -174,7 +174,7 @@ cd ~/nix-devenv
 nix flake update
 
 # Apply updates
-home-manager switch --flake .#khuang@ubuntu-laptop
+home-manager switch --flake .#khuang@ubuntu
 ```
 
 ### Viewing Generations
@@ -238,11 +238,11 @@ This means:
 ```bash
 # Apply configuration changes
 cd ~/nix-devenv
-home-manager switch --flake .#khuang@ubuntu-laptop
+home-manager switch --flake .#khuang@ubuntu
 
 # Update all packages to latest versions
 nix flake update
-home-manager switch --flake .#khuang@ubuntu-laptop
+home-manager switch --flake .#khuang@ubuntu
 
 # List all installed packages
 home-manager packages
@@ -268,7 +268,7 @@ cd ~/nix-devenv
 nvim modules/packages.nix
 
 # 2. Apply changes
-home-manager switch --flake .#khuang@ubuntu-laptop
+home-manager switch --flake .#khuang@ubuntu
 ```
 
 ### Checking Package Versions
@@ -340,7 +340,7 @@ nix profile list
 nix profile remove 0
 
 # Add to modules/packages.nix instead
-# Then: home-manager switch --flake .#khuang@ubuntu-laptop
+# Then: home-manager switch --flake .#khuang@ubuntu
 ```
 
 ### Issue: LSP server not found in editor
@@ -437,7 +437,7 @@ A: Yes, but it's recommended to eventually migrate everything to home-manager fo
 A: They remain in your nix profile and stay accessible. You can migrate them to home-manager later.
 
 **Q: How do I add a new LSP server?**
-A: Edit `modules/packages.nix`, add the package, then run `home-manager switch --flake .#khuang@ubuntu-laptop`.
+A: Edit `modules/packages.nix`, add the package, then run `home-manager switch --flake .#khuang@ubuntu`.
 
 **Q: Do I need to run nix develop in every project?**
 A: For projects with `.envrc`, direnv auto-loads them. For others, yes, manually run `nix develop`.
@@ -456,5 +456,5 @@ A: Yes! Fork this repo, modify configs, and use on any machine with Nix installe
 
 Issues or questions? Check:
 1. This README's Troubleshooting section
-2. Run with `--show-trace` for detailed errors: `home-manager switch --flake .#khuang@ubuntu-laptop --show-trace`
+2. Run with `--show-trace` for detailed errors: `home-manager switch --flake .#khuang@ubuntu --show-trace`
 3. Check home-manager logs: `journalctl --user -u home-manager-*`

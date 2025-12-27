@@ -10,6 +10,9 @@
         # Provide problematic plugins via Nix (pre-compiled)
         # lazy.nvim will recognize and configure them (see config/nvim/lua/kxhuan/plugins/)
         plugins = with pkgs.vimPlugins; [
+            # Lazy.nvim plugin manager itself (from Nix for reproducibility)
+            lazy-nvim
+
             # Treesitter with pre-compiled parsers (avoids compilation issues)
             # Configuration is in config/nvim/lua/kxhuan/plugins/treesitter.lua
             (nvim-treesitter.withPlugins (p: [
@@ -39,7 +42,8 @@
     };
 
     # Link individual neovim config files/directories
-    # This allows lazy.nvim to create writable files like lazy-lock.json
+    # This allows lazy.nvim to create writable files
     xdg.configFile."nvim/init.lua".source = ../config/nvim/init.lua;
     xdg.configFile."nvim/lua".source = ../config/nvim/lua;
+    xdg.configFile."nvim/lazy-lock.json".source = ../config/nvim/lazy-lock.json;
 }

@@ -8,7 +8,7 @@ Get up and running with home-manager in 5 minutes.
 
 ```bash
 cd ~/nix-devenv
-nix build '.#homeConfigurations."khuang@ubuntu-laptop".activationPackage'
+nix build '.#homeConfigurations."khuang@ubuntu".activationPackage'
 ```
 
 This downloads and builds all packages (takes 5-10 minutes first time).
@@ -65,7 +65,7 @@ Then reload: `source ~/.zshrc`
 
 ```bash
 cd ~/nix-devenv
-home-manager switch --flake .#khuang@ubuntu-laptop
+home-manager switch --flake .#khuang@ubuntu
 ```
 
 ### Update All Packages to Latest Versions
@@ -73,7 +73,7 @@ home-manager switch --flake .#khuang@ubuntu-laptop
 ```bash
 cd ~/nix-devenv
 nix flake update
-home-manager switch --flake .#khuang@ubuntu-laptop
+home-manager switch --flake .#khuang@ubuntu
 ```
 
 ### Add a New Package
@@ -81,7 +81,7 @@ home-manager switch --flake .#khuang@ubuntu-laptop
 1. Search for package: `nix search nixpkgs <name>`
 2. Edit `modules/packages.nix`
 3. Add to `home.packages` list
-4. Apply: `home-manager switch --flake .#khuang@ubuntu-laptop`
+4. Apply: `home-manager switch --flake .#khuang@ubuntu`
 
 ### List Installed Packages
 
@@ -136,10 +136,10 @@ home-manager uninstall
 
 ```bash
 # Apply config changes
-home-manager switch --flake ~/nix-devenv#khuang@ubuntu-laptop
+home-manager switch --flake ~/nix-devenv#khuang@ubuntu
 
 # Update everything
-nix flake update && home-manager switch --flake ~/nix-devenv#khuang@ubuntu-laptop
+nix flake update && home-manager switch --flake ~/nix-devenv#khuang@ubuntu
 
 # List packages
 home-manager packages
@@ -160,7 +160,7 @@ nix-collect-garbage -d
 nix eval nixpkgs#<package>.version
 
 # Rebuild after editing
-cd ~/nix-devenv && home-manager switch --flake .#khuang@ubuntu-laptop
+cd ~/nix-devenv && home-manager switch --flake .#khuang@ubuntu
 ```
 
 ## What You Have Now

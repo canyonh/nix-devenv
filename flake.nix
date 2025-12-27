@@ -56,8 +56,8 @@
     {
       # Home-manager configurations for different machines
       homeConfigurations = {
-        # Ubuntu laptop (Stage 1 - current machine)
-        "khuang@ubuntu-laptop" = mkHome {
+        # Ubuntu laptop
+        "khuang@ubuntu" = mkHome {
           system = "x86_64-linux";
           username = "khuang";
           hostname = "khuang-5690-ubuntu";
@@ -66,7 +66,7 @@
           ];
         };
 
-        # macOS machine (Stage 3)
+        # macOS machine (currently active)
         "khuang@macbook" = mkHome {
           system = "aarch64-darwin";  # Apple Silicon
           username = "khuang";
@@ -76,8 +76,8 @@
           ];
         };
 
-        # NixOS desktop (Stage 5 - future)
-        "kxhuan@nixos-desktop" = mkHome {
+        # NixOS desktop (future)
+        "kxhuan@nixos" = mkHome {
           system = "x86_64-linux";
           username = "kxhuan";
           hostname = "kxhuan-nixos";
@@ -100,12 +100,13 @@
             echo "Nix development environment"
             echo ""
             echo "Available commands:"
-            echo "  home-manager switch --flake .#khuang@ubuntu-laptop"
+            echo "  home-manager switch --flake .#khuang@ubuntu"
+            echo "  home-manager switch --flake .#khuang@macbook"
             echo "  home-manager generations"
             echo "  home-manager packages"
             echo ""
             echo "Dry-run (see what would change):"
-            echo "  home-manager switch --flake .#khuang@ubuntu-laptop --dry-run"
+            echo "  home-manager switch --flake .#<config-name> --dry-run"
           '';
         };
       });

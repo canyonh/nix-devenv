@@ -87,10 +87,12 @@
     nerd-fonts.fira-code
     nerd-fonts.hack
 
+    # Nix binary cache management
+    cachix
+
     # NOTE: We're NOT including these from nix profile:
     # - latticectl (from anduril-nixpkgs)
     # - yubikey-cli (from Anduril)
-    # - cachix (from your nix profile)
     # These remain in your existing nix profile for now
   ]
   # Linux-specific packages
