@@ -18,6 +18,9 @@
 
     # Shell options
     initContent = ''
+      # Ensure nix-managed binaries take precedence over system binaries
+      export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+
       # Basic options
       setopt autocd extendedglob nomatch menucomplete
       setopt interactive_comments
@@ -62,6 +65,16 @@
 
       # Source work-specific environment (if exists)
       [ -f ~/nix-secrets/work-env.sh ] && source ~/nix-secrets/work-env.sh
+
+      # Fix PATH after work-env.sh (which prepends /usr/bin)
+      # Ensure nix binaries take precedence over system binaries
+      export PATH="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:$PATH"
+
+      # Fix TERM if it was incorrectly set by work tools (Xilinx, etc)
+      # Only reset if not already in tmux/screen
+      if [[ -z "$TMUX" ]] && [[ "$TERM" == "screen"* ]]; then
+        export TERM="xterm-256color"
+      fi
     '';
   };
 
